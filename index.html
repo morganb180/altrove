@@ -161,8 +161,16 @@ function setLang(lang){
 document.querySelectorAll('.lang-btn').forEach(function(b){
   b.addEventListener('click', function(){ setLang(b.dataset.lang); });
 });
-var saved = 'it';
-try{ saved = localStorage.getItem('altrove-lang') || 'it'; }catch(e){}
+var saved = null;
+try{ saved = localStorage.getItem('altrove-lang'); }catch(e){}
+if(!saved){
+  var host = window.location.hostname.toLowerCase();
+  if(host.indexOf('vineyards') !== -1){
+    saved = 'en';
+  } else {
+    saved = 'it';
+  }
+}
 setLang(saved);
 
 var GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwGgxYGZB854vjpUGTxBS182oUgrWdZUrDEmwqGFXhdeTh55VK-OboOmsngk5eouEJQ6w/exec';
